@@ -11,10 +11,14 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from datetime import datetime
 
-# Ensure sys.path includes backend root
+# Ensure sys.path includes both backend directory and project root
 backend_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(backend_dir)
+
 if backend_dir not in sys.path:
     sys.path.insert(0, backend_dir)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 # Import database and pipeline operations
 try:
@@ -42,31 +46,34 @@ try:
         get_voice_embedding,
         process_bulk_audio
     )
-except ImportError:
-    from backend.src.database.db import (
-        check_teacher_exists,
-        create_teacher,
-        teacher_login,
-        get_all_students,
-        create_student,
-        create_subject,
-        get_teacher_subjects,
-        enroll_student_to_subject,
-        unenroll_student_to_subject,
-        get_student_subjects,
-        get_student_attendance,
-        create_attendance,
-        get_attendance_for_teacher
-    )
-    from backend.src.pipelines.face_pipeline import (
-        get_face_embeddings,
-        train_classifier,
-        predict_attendance
-    )
-    from backend.src.pipelines.voice_pipeline import (
-        get_voice_embedding,
-        process_bulk_audio
-    )
+except ModuleNotFoundError as err:
+    if err.name in ("src", "backend"):
+        from backend.src.database.db import (
+            check_teacher_exists,
+            create_teacher,
+            teacher_login,
+            get_all_students,
+            create_student,
+            create_subject,
+            get_teacher_subjects,
+            enroll_student_to_subject,
+            unenroll_student_to_subject,
+            get_student_subjects,
+            get_student_attendance,
+            create_attendance,
+            get_attendance_for_teacher
+        )
+        from backend.src.pipelines.face_pipeline import (
+            get_face_embeddings,
+            train_classifier,
+            predict_attendance
+        )
+        from backend.src.pipelines.voice_pipeline import (
+            get_voice_embedding,
+            process_bulk_audio
+        )
+    else:
+        raise err
 
 
 app = FastAPI(

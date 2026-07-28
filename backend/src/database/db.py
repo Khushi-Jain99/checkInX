@@ -1,7 +1,24 @@
+import os
+import sys
+
+# Ensure sys.path includes backend and project root
+_curr_dir = os.path.dirname(os.path.abspath(__file__)) # .../src/database
+_backend_dir = os.path.abspath(os.path.join(_curr_dir, "..", ".."))
+_project_root = os.path.abspath(os.path.join(_backend_dir, ".."))
+
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
+if _project_root not in sys.path:
+    sys.path.insert(0, _project_root)
+
 try:
     from src.database.config import supabase
-except ImportError:
-    from backend.src.database.config import supabase
+except ModuleNotFoundError as err:
+    if err.name in ("src", "backend"):
+        from backend.src.database.config import supabase
+    else:
+        raise err
+
 import bcrypt
 
 
