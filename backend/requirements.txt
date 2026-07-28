@@ -3,7 +3,7 @@ fastapi
 uvicorn
 python-dotenv
 python-multipart
-opencv-python
+opencv-python-headless
 
 # Utilities
 numpy
@@ -24,4 +24,4 @@ setuptools<70.0.0
 librosa
 webrtcvad-wheels
 segno
-# Note: Install resemblyzer separately using: pip install resemblyzer --no-deps
+resemblyzer

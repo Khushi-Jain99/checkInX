@@ -1,11 +1,20 @@
 from functools import lru_cache
-from resemblyzer import VoiceEncoder, preprocess_wav
 import numpy as np 
 import io
 import librosa
 
+try:
+    from resemblyzer import VoiceEncoder, preprocess_wav
+    RESEMBLYZER_AVAILABLE = True
+except ImportError:
+    RESEMBLYZER_AVAILABLE = False
+    VoiceEncoder = None
+    preprocess_wav = None
+
 @lru_cache(maxsize=1)
 def load_voice_encoder():
+    if not RESEMBLYZER_AVAILABLE:
+        raise RuntimeError("resemblyzer library is not installed or unavailable")
     return VoiceEncoder()
 
 

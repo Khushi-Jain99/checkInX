@@ -14,10 +14,17 @@ if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
 from functools import lru_cache
-import dlib
 import numpy as np
-import face_recognition_models
 from sklearn.svm import SVC
+
+try:
+    import dlib
+    import face_recognition_models
+    DLIB_AVAILABLE = True
+except ImportError:
+    DLIB_AVAILABLE = False
+    dlib = None
+    face_recognition_models = None
 
 try:
     from src.database.db import get_all_students
@@ -31,6 +38,8 @@ _MODEL_CACHE = None
 
 @lru_cache(maxsize=1)
 def load_dlib_models():
+    if not DLIB_AVAILABLE:
+        raise RuntimeError("dlib or face_recognition_models is not installed")
     detector = dlib.get_frontal_face_detector() 
 
     sp = dlib.shape_predictor(
