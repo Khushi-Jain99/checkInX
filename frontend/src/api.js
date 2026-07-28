@@ -1,4 +1,7 @@
-const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:8000' : '';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:8000' 
+    : 'https://checkinx-2.onrender.com');
 
 export async function checkHealth() {
   const res = await fetch(`${API_BASE_URL}/api/health`);
