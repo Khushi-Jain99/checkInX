@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 
 export default function Navbar({ activeRole, user, onRoleSelect, onLogout, onNavigate, currentTab }) {
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       style={{ position: 'sticky', top: '16px', zIndex: 100, padding: '0 24px' }}
     >
-      <div 
+      <div
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
@@ -31,28 +31,25 @@ export default function Navbar({ activeRole, user, onRoleSelect, onLogout, onNav
           onClick={() => onNavigate('home')}
           style={{ display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}
         >
-          <div style={{
-            width: '46px',
-            height: '46px',
-            borderRadius: '16px',
-            background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 8px 20px rgba(37, 99, 235, 0.35)'
-          }}>
-            <UserCheck size={26} color="#ffffff" strokeWidth={2} />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="CheckInX Logo" 
+            style={{
+              width: '46px',
+              height: '46px',
+              borderRadius: '14px',
+              objectFit: 'cover',
+              boxShadow: '0 8px 20px rgba(37, 99, 235, 0.25)',
+              border: '1px solid rgba(226, 232, 240, 0.8)'
+            }} 
+          />
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#0f172a' }}>
                 CheckIn<span style={{ color: '#2563eb' }}>X</span>
               </span>
-              <span className="badge badge-indigo" style={{ padding: '3px 10px', fontSize: '0.65rem' }}>
-                AI v2.0
-              </span>
             </div>
-            <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>Faster Attendance via AI</p>
+            <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>Faster Attendance</p>
           </div>
         </div>
 
@@ -135,12 +132,8 @@ export default function Navbar({ activeRole, user, onRoleSelect, onLogout, onNav
           </nav>
         )}
 
-        {/* Right User Actions & Status Badge */}
+        {/* Right User Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#ecfdf5', padding: '6px 14px', borderRadius: '30px', border: '1px solid #a7f3d0' }}>
-            <span className="pulse-dot"></span>
-            <span style={{ fontSize: '0.78rem', color: '#047857', fontWeight: 700 }}>API Connected</span>
-          </div>
 
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -152,9 +145,9 @@ export default function Navbar({ activeRole, user, onRoleSelect, onLogout, onNav
                   {activeRole}
                 </span>
               </div>
-              <button 
+              <button
                 onClick={onLogout}
-                className="btn-secondary" 
+                className="btn-secondary"
                 style={{ height: '42px', width: '42px', padding: 0, borderRadius: '14px' }}
                 title="Logout"
               >
@@ -163,15 +156,15 @@ export default function Navbar({ activeRole, user, onRoleSelect, onLogout, onNav
             </div>
           ) : (
             <div style={{ display: 'flex', gap: '10px' }}>
-              <button 
-                onClick={() => onRoleSelect('teacher')} 
+              <button
+                onClick={() => onRoleSelect('teacher')}
                 className="btn-primary"
                 style={{ height: '46px', padding: '0 20px', fontSize: '0.88rem', borderRadius: '14px' }}
               >
                 <ShieldCheck size={18} strokeWidth={2} /> Teacher Access
               </button>
-              <button 
-                onClick={() => onRoleSelect('student')} 
+              <button
+                onClick={() => onRoleSelect('student')}
                 className="btn-secondary"
                 style={{ height: '46px', padding: '0 20px', fontSize: '0.88rem', borderRadius: '14px' }}
               >

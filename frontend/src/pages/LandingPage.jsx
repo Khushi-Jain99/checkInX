@@ -70,10 +70,6 @@ export default function LandingPage({ onLoginSuccess }) {
 
   return (
     <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
-      
-      {/* Background Ambient Orbs */}
-      <div className="bg-ambient-orb-1"></div>
-      <div className="bg-ambient-orb-2"></div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '100px 24px 120px', position: 'relative', zIndex: 10 }}>
         
@@ -289,12 +285,6 @@ export default function LandingPage({ onLoginSuccess }) {
                       {loading ? 'Authenticating...' : authMode === 'login' ? 'Sign In to Dashboard' : 'Create Account'} <ArrowRight size={18} strokeWidth={2.2} />
                     </button>
                   </form>
-
-                  {/* Demo Credentials hint */}
-                  <div style={{ marginTop: '24px', padding: '14px 18px', background: 'rgba(248, 250, 252, 0.9)', borderRadius: '16px', fontSize: '0.8rem', color: '#64748b', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Zap size={16} color="#d97706" strokeWidth={2.2} />
-                    <span><strong>Demo Quick Login:</strong> Username: <code>prof_demo</code> | Password: <code>demo123</code></span>
-                  </div>
                 </div>
               ) : (
                 /* Student Portal Login */
